@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #232122;
+}
+
+.container img {
+  height: 250px;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+#wrapper {
+  width: 900px;
+  margin: 20px auto;
+}
+
+.data-container {
+  margin-top: 20px;
+}
+
+.data-container ul {
+  padding: 0;
+  margin: 0;
+}
+
+.data-container li {
+  margin-bottom: 5px;
+  padding: 5px 10px;
+  background: #eee;
+  color: #666;
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(165, 159, 159);
+}
+
+/* pagination center */
+.paginationjs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

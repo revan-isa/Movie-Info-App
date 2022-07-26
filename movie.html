@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Info</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
+    <!-- Paginationjs.org plugin cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css"
+      integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- a little css here -->
+    <style>
+      body {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        min-height: 150px;
+      }
+
+      .plot {
+        font-style: italic;
+      }
+
+      span {
+        color: rgb(219, 219, 219);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- main -->
+
+    <div class="container rounded-3 bg-info p-5" id="movie"></div>
+
+    <!-- script -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"
+      integrity="sha512-1zzZ0ynR2KXnFskJ1C2s+7TIEewmkB2y+5o/+ahF7mwNj9n3PnzARpqalvtjSbUETwx6yuxP5AJXZCpnjEJkQw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="script.js"></script>
+
+    <script>
+      function getMovie() {
+        let movieId = sessionStorage.getItem("movieId");
+
+        $.ajax({
+          type: "GET",
+          url: `https://omdbapi.com/?i=${movieId}&page=1&apikey=fc1fef96`,
+          success: function (data) {
+            console.log(data);
+            let output = `
+            <div class="row text-white">
+
+                <div class="col-md-4">
+                <img class="img-thumbnail" src="${data.Poster}">    
+                </div>
+
+                <div class="col-md-8">  
+                    <h2 class="text-center">${data.Title}</h2>
+                    <p class="font-monospace plot">${data.Plot}</p>   
+                    <div class="row text-white">
+                        <div class="col-md-4">
+                          <h6>Genre: <span class="font-monospace">${data.Genre}</span></h6>
+                          <h6>Actor: <span class="font-monospace">${data.Actors}</span></h6>
+                          <h6>Director: <span class="font-monospace">${data.Director}</span></h6>
+                          <h6>Country: <span class="font-monospace">${data.Country}</span></h6>
+                        </div>  
+               
+                        <div class="col-md-8">
+                          <h6>Duration: <span class="font-monospace">${data.Runtime}</span></h6>
+                          <h6>Release: <span class="font-monospace"${data.Released}></span></h6>
+                          <h6>imdb: <span class="font-monospace">${data.imdbRating}</span></h6>
+                          <h6>Language: <span class="font-monospace">${data.Language}</span></h6>
+                          <h6>Box Office: <span class="font-monospace">${data.BoxOffice}</span></h6>
+                          <h6>Writer: <span class="font-monospace">${data.Writer}</span></h6>
+                        </div>  
+                 
+             
+                     </div>
+                </div>
+            </div>
+            
+            `;
+            $("#movie").html(output);
+          },
+        });
+      }
+
+      getMovie();
+    </script>
+  </body>
+</html>
